@@ -8,6 +8,7 @@ defaults: &defaults
 
 live: &live
   <<: *defaults
+  api_token: <%= ENV['FYBER_API_TOKEN'] %>
 
 test:
   <<: *defaults
