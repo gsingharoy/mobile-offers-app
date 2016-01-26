@@ -1,0 +1,20 @@
+.panel.panel-default
+  .panel-heading
+    %h5 Fill out the input paramters
+  .panel-body
+    = form_tag(search_offers_path, method: 'get') do
+      .form-group
+        %label{ for: 'uid' }
+          uid
+        = text_field_tag 'uid', attrs[:uid], class: 'form-control', placeholder: 'eg., user1'
+      .form-group
+        %label{ for: 'pub0' }
+          pub0
+        = text_field_tag 'pub0', attrs[:pub0], class: 'form-control', placeholder: 'eg., campaign1'
+      .form-group
+        %label{ for: 'page' }
+          page
+        = text_field_tag 'page', attrs[:page], class: 'form-control', placeholder: 'eg., 2'
+      %button.btn.btn-success{ type: 'submit' }
+        %span.glyphicon.glyphicon-search
+        Search

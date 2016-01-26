@@ -54,7 +54,10 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   resources :offers do
-    get :new_search, on: :collection
+    collection do
+      get :new_search
+      get :search
+    end
   end
   root 'offers#new_search'
 end

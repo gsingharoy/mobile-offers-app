@@ -1,10 +1,9 @@
 class OffersController < ApplicationController
 
-  def index
+  def search
 
   end
 
   def new_search
   end
-
 end
