@@ -90,7 +90,7 @@ describe RetrieveOffers do
       context 'response_code is 200' do
         context 'no content' do
           before do
-            response_body = { message: 'No Content' }.to_json
+            response_body = { code: 'NO_CONTENT' }.to_json
             response = OpenStruct.new(code: 200, body: response_body)
             allow_any_instance_of(ApiClients::Fyber::MobileOffers).to receive(:fetch)
               .and_return(response)

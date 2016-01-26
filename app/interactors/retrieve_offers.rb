@@ -23,8 +23,12 @@ class RetrieveOffers
 
   def handle_success_response
     context.offers = []
-    if response_body[:message] == 'OK'
-      #stub
+    if response_body[:code] == 'OK'
+      response_body[:offers].each do |offer_hash|
+        context.offers << Offer.new(title: offer_hash[:title],
+          payout: offer_hash[:payout],
+          thumbnail: offer_hash[:thumbnail][:lowres])
+      end
     end
   end
 
