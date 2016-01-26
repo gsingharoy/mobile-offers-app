@@ -88,10 +88,10 @@ describe RetrieveOffers do
         end
       end
       context 'response_code is 200' do
+        let(:response) { OpenStruct.new(code: 200, body: response_body) }
         context 'no content' do
+          let(:response_body) { { code: 'NO_CONTENT' }.to_json }
           before do
-            response_body = { code: 'NO_CONTENT' }.to_json
-            response = OpenStruct.new(code: 200, body: response_body)
             allow_any_instance_of(ApiClients::Fyber::MobileOffers).to receive(:fetch)
               .and_return(response)
           end
@@ -103,6 +103,36 @@ describe RetrieveOffers do
           end
           it 'offers is empty' do
             expect(subject.offers).to eq ([])
+          end
+        end
+        context 'content is there' do
+          let(:response_body) do
+            File.read(File.join([Rails.root, 'spec', 'fixtures', 'api_responses','fyber', 'mobile_offers.json']))
+          end
+          before do
+            allow_any_instance_of(ApiClients::Fyber::MobileOffers).to receive(:fetch)
+              .and_return(response)
+          end
+          let(:subject) do
+            RetrieveOffers.call(uid: 'user1', page: 2, pub0: 'campaign1')
+          end
+          it 'success? is true' do
+            expect(subject.success?).to eq true
+          end
+          it 'offers is not empty' do
+            expect(subject.offers.count).to eq JSON(response_body)['offers'].count
+          end
+          it 'adds title to the created offers' do
+            expected_titles = JSON(response_body)['offers'].map{ |o| o['title'] }
+            expect(subject.offers.map(&:title)).to eq expected_titles
+          end
+          it 'adds payout to the created offers' do
+            expected_payouts = JSON(response_body)['offers'].map{ |o| o['payout'] }
+            expect(subject.offers.map(&:payout)).to eq expected_payouts
+          end
+          it 'adds thumbnail to the created offers' do
+            expected_thumbnails = JSON(response_body)['offers'].map{ |o| o['thumbnail']['lowres'] }
+            expect(subject.offers.map(&:thumbnail)).to eq expected_thumbnails
           end
         end
       end
