@@ -7,13 +7,13 @@ This is a simple UI solution to search for mobile offers using the [Fyber api](h
 Installation
 ------------
 
-Install ruby version 2.2.2 using rvm .
+Install ruby version 2.3.0 using rvm .
 ```sh
-rvm install ruby-2.2.2
+rvm install ruby-2.3.0
 ```
-Use ruby verion 2.2.2 with a new gemset
+Use ruby verion 2.3.0 with a new gemset
 ```sh
-rvm use ruby-2.2.2@mobile-offers-app --create
+rvm use ruby-2.3.0@mobile-offers-app --create
 ```
 Install bundle.
 ```sh
@@ -24,7 +24,7 @@ Now the setup is complete.
 Start server
 ------------
 ```sh
-rvm use ruby-2.2.2@mobile-offers-app
+rvm use ruby-2.3.0@mobile-offers-app
 bundle exec rails s
 ```
 You can now go to http://localhost:3000/
